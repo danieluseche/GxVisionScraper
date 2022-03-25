@@ -215,7 +215,6 @@ def login():
 
 if __name__=='__main__':
 
-
     url = "https://inter.com.ve/gxvision/"
     username = "AASOINTEC"
     password = "Sointec34"
