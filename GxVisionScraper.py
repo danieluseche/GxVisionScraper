@@ -77,10 +77,16 @@ class AsociatedAgent:
         self.optionMenu[Options.Bandeja_Entrada_de_Email].click()
 
     def goto_Contactos(self):
-        self.get_menu()
-        self.mainMenu[MainMenu.Atencion_al_cliente].click()
-        self.secondMenu[SecondMenu.CRM].click()
-        self.optionMenu[Options.Contactos].click()
+        try:
+            self.get_menu()
+            self.mainMenu[MainMenu.Atencion_al_cliente].click()
+            self.secondMenu[SecondMenu.CRM].click()
+            self.optionMenu[Options.Contactos].click()
+        except:
+            print("option not available")
+        else:
+            if(not self.is_authorized()):
+                self.driver.back()
 
     def goto_Venta_HFC_Agente_Autorizado(self):
         self.get_menu()
@@ -121,7 +127,7 @@ class AsociatedAgent:
     def test_menu(self):
 
         input("goto_Cambiar_Permisor")
-        self.goto_Cambiar_Permisor()
+        self.goto_Cambiar_Permisor() # No autorizado
 
         input("Go to Marcas de Cable Modem")
         self.goto_Marcas_de_Cable_Modem()
@@ -129,14 +135,14 @@ class AsociatedAgent:
         input("goto_Bandeja_Entrada_de_Email")
         self.goto_Bandeja_Entrada_de_Email()
 
-        input("goto_Contactos")  // No autorizado
+        input("goto_Contactos")  # No autorizado
         self.goto_Contactos()
 
         input("goto_Venta_HFC_Agente_Autorizado")
         self.goto_Venta_HFC_Agente_Autorizado()
 
         input("goto_Contrato_Cable")
-        self.goto_Contrato_Cable() // No autorizado
+        self.goto_Contrato_Cable() # No autorizado
         input("goto_Casa")
 
         self.goto_Casa()
@@ -151,6 +157,20 @@ class AsociatedAgent:
 
         input("END Menu")
 
+    def is_authorized(self):
+        if "Not authorized" in self.driver.title:
+            return False
+        else:
+            return True
+
+def login():
+    url = "https://inter.com.ve/gxvision/"
+    username = "AASOINTEC"
+    password = "Sointec34"
+    
+    Sointec = AsociatedAgent(url)
+    Sointec.login(username, password) 
+    return Sointec
 
 if __name__=='__main__':
 
@@ -165,4 +185,5 @@ if __name__=='__main__':
     Sointec.test_menu()
     Sointec.logout()
     Sointec.driver.quit()
+    #<title>K2B Not Authorized</title>
 
