@@ -59,70 +59,110 @@ class AsociatedAgent:
         self.secondMenu = self.driver.find_elements(By.CLASS_NAME,"ThemeBlackMenuFolderRight")
         self.optionMenu = self.driver.find_elements(By.CLASS_NAME,"ThemeBlackMenuItemText")
 
+        if len(self.mainMenu) == 0 or len(self.secondMenu) == 0 or len(self.optionMenu) == 0:
+            print("\033[0;31mMenu not available\033[0m")
+            return False
+        else:
+            return True
+
     def goto_Cambiar_Permisor(self):
-        self.get_menu()
+        if not self.get_menu():
+            return
         self.mainMenu[MainMenu.Default].click()
         self.optionMenu[Options.Cambiar_Permisor].click()
 
+        if(not self.is_authorized()):
+            self.driver.back()
+
     def goto_Marcas_de_Cable_Modem(self):
-        self.get_menu()
+        if not self.get_menu():
+            return
         self.mainMenu[MainMenu.Conf_Operativa].click()
         self.secondMenu[SecondMenu.Conf_Tecnica].click()
         self.optionMenu[Options.Marcas_de_Cable_Modem].click()
 
+        if(not self.is_authorized()):
+            self.driver.back()
+
     def goto_Bandeja_Entrada_de_Email(self):
-        self.get_menu()
+        if not self.get_menu():
+            return
         self.mainMenu[MainMenu.Atencion_al_cliente].click()
         self.secondMenu[SecondMenu.CRM].click()
         self.optionMenu[Options.Bandeja_Entrada_de_Email].click()
 
+        if(not self.is_authorized()):
+            self.driver.back()
+
     def goto_Contactos(self):
-        try:
-            self.get_menu()
-            self.mainMenu[MainMenu.Atencion_al_cliente].click()
-            self.secondMenu[SecondMenu.CRM].click()
-            self.optionMenu[Options.Contactos].click()
-        except:
-            print("option not available")
-        else:
-            if(not self.is_authorized()):
-                self.driver.back()
+        if not self.get_menu():
+            return
+        self.mainMenu[MainMenu.Atencion_al_cliente].click()
+        self.secondMenu[SecondMenu.CRM].click()
+        self.optionMenu[Options.Contactos].click()
+
+        if(not self.is_authorized()):
+            self.driver.back()
 
     def goto_Venta_HFC_Agente_Autorizado(self):
-        self.get_menu()
+        if not self.get_menu():
+            return
         self.mainMenu[MainMenu.Atencion_al_cliente].click()
         self.secondMenu[SecondMenu.CRM].click()
         self.optionMenu[Options.Venta_HFC_Agente_Autorizado].click()
 
+        if(not self.is_authorized()):
+            self.driver.back()
+
     def goto_Contrato_Cable(self):
-        self.get_menu()
+        if not self.get_menu():
+            return
         self.mainMenu[MainMenu.Comercial].click()
         self.secondMenu[SecondMenu.Contratos].click()
         self.optionMenu[Options.Contrato_Cable].click()
 
+        if(not self.is_authorized()):
+            self.driver.back()
+
     def goto_Casa(self):
-        self.get_menu()
+        if not self.get_menu():
+            return
         self.mainMenu[MainMenu.Div_Geografica].click()
         self.secondMenu[SecondMenu.Base_de_Datos_Geografica].click()
         self.optionMenu[Options.Casa].click()
 
+        if(not self.is_authorized()):
+            self.driver.back()
+
     def goto_Estado_ONU(self):
-        self.get_menu()
+        if not self.get_menu():
+            return
         self.mainMenu[MainMenu.Tecnica].click()
         self.secondMenu[SecondMenu.HeadEnd].click()
         self.optionMenu[Options.Estado_ONU].click()
 
+        if(not self.is_authorized()):
+            self.driver.back()
+
     def goto_Cola_815(self):
-        self.get_menu()
+        if not self.get_menu():
+            return
         self.mainMenu[MainMenu.Tecnica].click()
         self.secondMenu[SecondMenu.HeadEnd].click()
         self.optionMenu[Options.Cola_815].click()
 
+        if(not self.is_authorized()):
+            self.driver.back()
+
     def goto_Cable_Modem(self):
-        self.get_menu()
+        if not self.get_menu():
+            return
         self.mainMenu[MainMenu.Tecnica].click()
         self.secondMenu[SecondMenu.Almacen].click()
         self.optionMenu[Options.Cable_Modem].click()
+
+        if(not self.is_authorized()):
+            self.driver.back()
 
     def test_menu(self):
 
@@ -159,6 +199,7 @@ class AsociatedAgent:
 
     def is_authorized(self):
         if "Not authorized" in self.driver.title:
+            print("\033[0;31mNot authorized\033[0m")
             return False
         else:
             return True
@@ -183,7 +224,7 @@ if __name__=='__main__':
     Sointec.login(username, password)    
 
     Sointec.test_menu()
+
     Sointec.logout()
     Sointec.driver.quit()
-    #<title>K2B Not Authorized</title>
 
