@@ -198,7 +198,7 @@ class AsociatedAgent:
         input("END Menu")
 
     def is_authorized(self):
-        if "Not authorized" in self.driver.title:
+        if "Not Authorized" in self.driver.title:
             print("\033[0;31mNot authorized\033[0m")
             return False
         else:
@@ -227,3 +227,21 @@ if __name__=='__main__':
     Sointec.logout()
     Sointec.driver.quit()
 
+#ID:
+#zona          vFSECNRO
+#urbanizacion  vFURBDSC
+#calle         vFCALNOM
+#casa          vFCASCOD
+#num_abonado   vFABOCOD
+#Num documento vFABODOCNRO
+
+#Tabla:        GridContainerTbl
+#Npag:         I_PAGINGNEXTCTROL_GRID
+#PrevPag:      I_PAGINGPREVIOUSCTROL_GRID
+
+#Boton de busqueda:
+#type="button" 
+#name="BUTTON1" By.NAME 
+#value="Buscar" 
+#title="Buscar" 
+#class="Button_Standard"
